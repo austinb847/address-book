@@ -74,7 +74,14 @@ function showContact(contactId) {
 
 function attachContactListeners() {
   $("ul#contacts").on("click", "li", function() {
-    showContact(this.id);
+    showContact(parseInt(this.id));
+    
+  });
+
+  $("#buttons").on("click", ".deleteButton", function() {
+    addressBook.deleteContact(parseInt(this.id));
+    $("#show-contact").hide();
+    displayContactDetails(addressBook);
   });
 };
 
@@ -83,8 +90,16 @@ $(document).ready(function() {
   $("form#new-contact").submit(function(event) {
     event.preventDefault();
     var inputtedFirstName = $("input#new-first-name").val();
+    console.log(inputtedFirstName);
     var inputtedLastName = $("input#new-last-name").val();
+    console.log(inputtedLastName)
     var inputtedPhoneNumber = $("input#new-phone-number").val();
+    console.log(inputtedPhoneNumber);
+    //empty form text boxes
+    $("input#new-first-name").val("");
+    $("input#new-last-name").val("");
+    $("input#new-phone-number").val("");
+
     var newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber);
     addressBook.addContact(newContact);
     displayContactDetails(addressBook);
