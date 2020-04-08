@@ -38,16 +38,25 @@ AddressBook.prototype.deleteContact = function(id) {
 }
 
 //Business logic for Contacts
-function Contact (firstName, lastName, phoneNumber, emailAddress, homeAddress) {
+function Contact (firstName, lastName, phoneNumber, emailAddress) {
   this.firstName = firstName;
   this.lastName = lastName;
   this.phoneNumber = phoneNumber;
   this.emailAddress = emailAddress;
-  this.homeAddress = homeAddress;
+  this.addresses = [];
+}
+
+Contact.prototype.addPhysicalAddress = function(address) {
+  this.addresses.push(address);
 }
 
 Contact.prototype.fullName = function() {
   return this.firstName + " " + this.lastName;
+}
+
+function PhysicalAddress (addresses, type) {
+  this.addresses = addresses;
+  this.type = type;
 }
 
 //UI logic
@@ -97,6 +106,10 @@ function emptyFormText() {
   $("input#new-home-address").val("");
 }
 
+function createAddress() {
+
+}
+
 $(document).ready(function() {
   attachContactListeners(); 
   $("form#new-contact").submit(function(event) {
@@ -105,7 +118,12 @@ $(document).ready(function() {
     var inputtedLastName = $("input#new-last-name").val();
     var inputtedPhoneNumber = $("input#new-phone-number").val();
     var inputtedEmailAddress = $("input#new-email-address").val();
-    var inputtedHomeAddress = $("input#new-home-address").val();
+    var inputtedAddress1 = $("input#new-address-1").val();
+    var radioAddress1 = $("input[name='address1']:checked").val();
+    var inputtedAddress2 = $("input#new-address-2").val();
+    var radioAddress2 = $("input[name='address2']:checked").val();
+
+    
     //empty form text boxes
     emptyFormText();
     
